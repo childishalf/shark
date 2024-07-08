@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Pack</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Eco Pack</h1>
+    </header>
+    <div class="product-container">
+        <div class="product-header">
+            <div class="product-images">
+                <img id="main-image" class="main-image" src="eco-pack1.jpg.webp" alt="Eco Pack">
+                <div class="thumbnail-container">
+                    <img class="thumbnail" src="eco-pack1.jpg.webp" alt="Eco Pack Thumbnail" onclick="changeImage('eco-pack1.jpg.webp')">
+                    <img class="thumbnail" src="eco-pack2.jpg.webp" alt="Eco Pack Thumbnail" onclick="changeImage('eco-pack2.jpg.webp')">
+                    <img class="thumbnail" src="eco-pack3.jpg.webp" alt="Eco Pack Thumbnail" onclick="changeImage('eco-pack3.jpg.webp')">
+                </div>
+            </div>
+            <div class="product-details">
+                <h2>Eco Package</h2>
+                <p>Price: $35.00</p>
+                <p>Availability: In stock</p>
+                <p>Product Details:</p>
+                <p>By purchasing this package, you are contributing to the removal of waste from our oceans. This eco-friendly package is made from recycled ocean waste materials, helping to reduce pollution and protect marine life. It's designed to be durable, stylish, and environmentally responsible.</p>
+                <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    <div class="cart" id="cart" draggable="true">
+        <h2>Shopping Cart</h2>
+        <ul id="cart-items">
+            <!-- Cart items will be added here dynamically -->
+        </ul>
+        <p id="cart-total">Total: $0.00</p>
+    </div>
+    <div class="navigation-button-container">
+        <button class="navigation-button" onclick="window.location.href='locations.html'">Learn more about our sourcing locations</button>
+    </div>
+    <footer>
+        <p>SharkTank Project</p>
+    </footer>
+
+    <script>
+        let currentImageIndex = 0;
+        const images = ['eco-pack1.jpg.webp', 'eco-pack2.jpg.webp', 'eco-pack3.jpg.webp'];
+        let cart = [];
+
+        function changeImage(imageSrc) {
+            document.getElementById('main-image').src = imageSrc;
+        }
+
+        function addToCart() {
+            const item = {
+                name: 'Eco Package',
+                price: 35.00,
+                quantity: 1
+            };
+            cart.push(item);
+            updateCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${item.name} - $${item.price.toFixed(2)} x ${item.quantity} <button onclick="removeFromCart(${index})">Remove</button>`;
+                cartItems.appendChild(li);
+                total += item.price * item.quantity;
+            });
+            document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
+            document.getElementById('cart').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
+
+
